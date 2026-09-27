@@ -3,7 +3,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import crypto from "node:crypto";
 
-export const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR ?? "./uploads");
+export const UPLOAD_DIR = path.resolve(/*turbopackIgnore: true*/ process.env.UPLOAD_DIR ?? "./uploads");
 
 export const UPLOAD_KINDS = {
   document: {
@@ -43,7 +43,7 @@ export async function saveUpload(file: FormDataEntryValue | null, kind: UploadKi
   if (file.size > rules.maxBytes) {
     throw new UploadError(`File is too large. Maximum size is ${Math.round(rules.maxBytes / 1024 / 1024)}MB.`);
   }
-  const dir = path.join(UPLOAD_DIR, kind);
+  const dir = path.join(/*turbopackIgnore: true*/ UPLOAD_DIR, kind);
   await mkdir(dir, { recursive: true });
   const filename = `${Date.now()}-${crypto.randomBytes(8).toString("hex")}.${ext}`;
   await writeFile(path.join(dir, filename), Buffer.from(await file.arrayBuffer()));

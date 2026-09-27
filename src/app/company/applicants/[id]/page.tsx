@@ -26,7 +26,7 @@ export default async function CompanyApplicantPage({ params }: PageProps<"/compa
   if (!app || app.opportunity.companyId !== company.id || app.status === "draft") notFound();
   if (app.status === "submitted") {
     // Opening a new application moves it into review and lets the student know.
-    await applyStatusChange(app, { title: app.opportunity.title, companyName: company.name }, "under_review", null);
+    await applyStatusChange(app, { title: app.opportunity.title, companyName: company.name }, "under_review", null, { email: false });
     app = (await load(id))!;
   }
   const profile = await db.query.studentProfiles.findFirst({ where: eq(studentProfiles.userId, app.userId) });

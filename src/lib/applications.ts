@@ -20,6 +20,7 @@ export async function applyStatusChange(
   opp: { title: string; companyName: string },
   status: ApplicationStatus,
   note: string | null,
+  opts: { email?: boolean } = {},
 ) {
   if (app.status === status && !note) return;
   await db.update(applications).set({ status, ...(note ? { companyNote: note } : {}) }).where(eq(applications.id, app.id));
@@ -32,7 +33,7 @@ export async function applyStatusChange(
     link: `/dashboard/applications/${app.id}`,
   });
   const profile = await db.query.studentProfiles.findFirst({ where: eq(studentProfiles.userId, app.userId), columns: { notificationPrefs: true } });
-  if (profile?.notificationPrefs.applicationUpdates ?? true) {
+  if (opts.email !== false && (profile?.notificationPrefs.applicationUpdates ?? true)) {
     await sendMail({
       to: app.email,
       subject: `Application update: ${opp.title}`,

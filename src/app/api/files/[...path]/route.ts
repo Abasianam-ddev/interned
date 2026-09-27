@@ -15,7 +15,7 @@ const MIME: Record<string, string> = {
 
 export async function GET(_req: Request, ctx: { params: Promise<{ path: string[] }> }) {
   const { path: parts } = await ctx.params;
-  const target = path.resolve(UPLOAD_DIR, ...parts);
+  const target = path.resolve(/*turbopackIgnore: true*/ UPLOAD_DIR, ...parts);
   if (!target.startsWith(UPLOAD_DIR + path.sep)) return new Response("Not found", { status: 404 });
   try {
     const info = await stat(target);
