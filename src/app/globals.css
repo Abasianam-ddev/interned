@@ -1,0 +1,105 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans Variable", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Caveat", cursive;
+
+  --color-brand-50: #f0faf6;
+  --color-brand-100: #eaf7f2;
+  --color-brand-200: #cdeee0;
+  --color-brand-300: #9edcc3;
+  --color-brand-400: #4fbf92;
+  --color-brand-500: #13a06f;
+  --color-brand-600: #087f5b;
+  --color-brand-700: #076c4e;
+  --color-brand-800: #065a42;
+  --color-brand-900: #064e3b;
+  --color-brand-950: #03291f;
+
+  --color-ink: #10201b;
+  --color-muted: #66756f;
+  --color-line: #e5ece9;
+  --color-canvas: #f6faf8;
+
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+
+  --shadow-card: 0 1px 2px rgb(16 32 27 / 0.04), 0 4px 16px -6px rgb(16 32 27 / 0.08);
+  --shadow-float: 0 12px 40px -12px rgb(6 78 59 / 0.25);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-white font-sans text-ink;
+  }
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+    word-spacing: 0.06em;
+  }
+  h1, h2 {
+    letter-spacing: -0.025em;
+  }
+  h3, h4 {
+    letter-spacing: -0.005em;
+  }
+  ::selection {
+    @apply bg-brand-200 text-brand-950;
+  }
+  input[type="checkbox"], input[type="radio"] {
+    accent-color: var(--color-brand-600);
+  }
+}
+
+@utility container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 96rem;
+  padding-inline: 1rem;
+  @media (width >= 40rem) {
+    padding-inline: 1.5rem;
+  }
+  @media (width >= 64rem) {
+    padding-inline: 4.75rem;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Long-form content (articles, legal pages) */
+.prose-internly {
+  @apply text-[15px] leading-7 text-ink/85;
+}
+.prose-internly h2 {
+  @apply mt-8 mb-3 text-xl font-bold text-ink;
+}
+.prose-internly h3 {
+  @apply mt-6 mb-2 text-lg font-semibold text-ink;
+}
+.prose-internly p {
+  @apply my-4;
+}
+.prose-internly ul {
+  @apply my-4 list-disc space-y-1.5 pl-6;
+}
+.prose-internly ol {
+  @apply my-4 list-decimal space-y-1.5 pl-6;
+}
+.prose-internly a {
+  @apply font-medium text-brand-700 underline underline-offset-2;
+}
+.prose-internly strong {
+  @apply font-semibold text-ink;
+}
+.prose-internly blockquote {
+  @apply my-6 border-l-4 border-brand-500 bg-brand-50 px-5 py-3 italic;
+}
