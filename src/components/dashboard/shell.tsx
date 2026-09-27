@@ -60,6 +60,10 @@ export type NavSection = { title?: string; items: NavItem[] };
 
 function Nav({ sections, onNavigate }: { sections: NavSection[]; onNavigate?: () => void }) {
   const pathname = usePathname();
+  // Highlight only the most specific matching item (e.g. "Post Opportunity" rather than "My Opportunities").
+  const all = sections.flatMap((s) => s.items);
+  const matches = all.filter((item) => (item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`)));
+  const activeHref = matches.sort((a, b) => b.href.length - a.href.length)[0]?.href;
   return (
     <nav className="flex flex-col gap-6">
       {sections.map((s, i) => (
@@ -68,7 +72,7 @@ function Nav({ sections, onNavigate }: { sections: NavSection[]; onNavigate?: ()
           <ul className="space-y-1">
             {s.items.map((item) => {
               const Icon = NAV_ICONS[item.icon];
-              const active = item.exact ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
+              const active = item.href === activeHref;
               return (
                 <li key={item.href}>
                   <Link

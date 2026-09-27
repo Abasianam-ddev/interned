@@ -139,3 +139,10 @@ export function safeUrl(value: string | null | undefined) {
 export function pluralize(n: number, word: string, plural = `${word}s`) {
   return `${n.toLocaleString()} ${n === 1 ? word : plural}`;
 }
+
+/** Midnight (server local time) `days` days ago. */
+export function daysAgo(days: number) {
+  const d = new Date(Date.now() - days * 86400000);
+  d.setHours(0, 0, 0, 0);
+  return d;
+}

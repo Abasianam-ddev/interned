@@ -130,3 +130,9 @@ export const FIELD_ICONS = [
   "camera",
   "users",
 ] as const;
+
+export const EDITABLE_PAGES = [
+  { slug: "about", title: "About Us", path: "/about" },
+  { slug: "privacy", title: "Privacy Policy", path: "/privacy" },
+  { slug: "terms", title: "Terms of Service", path: "/terms" },
+];

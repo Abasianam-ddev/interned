@@ -43,8 +43,8 @@ export async function getCompanyOpportunities(companyId: string, status?: string
       views: opportunities.views,
       createdAt: opportunities.createdAt,
       rejectionReason: opportunities.rejectionReason,
-      applicants: sql<number>`(select count(*) from ${applications} a where a.opportunity_id = ${opportunities.id} and a.status <> 'draft')`.mapWith(Number),
-      newApplicants: sql<number>`(select count(*) from ${applications} a where a.opportunity_id = ${opportunities.id} and a.status = 'submitted')`.mapWith(Number),
+      applicants: sql<number>`(select count(*) from applications a where a.opportunity_id = "opportunities"."id" and a.status <> 'draft')`.mapWith(Number),
+      newApplicants: sql<number>`(select count(*) from applications a where a.opportunity_id = "opportunities"."id" and a.status = 'submitted')`.mapWith(Number),
     })
     .from(opportunities)
     .where(and(...conds))

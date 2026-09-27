@@ -278,6 +278,7 @@ export async function getFieldsWithCounts() {
       name: fields.name,
       icon: fields.icon,
       description: fields.description,
+      sortOrder: fields.sortOrder,
       count: sql<number>`count(${opportunities.id}) filter (where ${opportunities.status} = 'published' and (${opportunities.deadline} is null or ${opportunities.deadline} >= ${today()}))`.mapWith(
         Number,
       ),
