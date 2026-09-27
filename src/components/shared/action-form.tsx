@@ -64,7 +64,6 @@ export function ActionForm({
     <FormCtx.Provider value={{ pending, state }}>
       <form
         ref={formRef}
-        noValidate={false}
         className={className}
         onSubmit={(e) => {
           e.preventDefault();
