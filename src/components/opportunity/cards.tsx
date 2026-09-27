@@ -49,7 +49,7 @@ export function OpportunityCard({ o, className }: { o: OpportunityCardData; clas
       <div className="mt-4">
         <Tags o={o} compact />
       </div>
-      <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+      <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-5">
         <Deadline date={o.deadline} />
         <Button asChild variant="primary" size="sm" className="relative z-10 bg-brand-700 hover:bg-brand-800">
           <Link href={`/opportunities/${o.slug}`}>

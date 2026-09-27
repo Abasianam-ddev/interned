@@ -237,10 +237,10 @@ export async function getFacetCounts() {
       .where(where)
       .groupBy(sql`1`),
   ]);
-  const toMap = (rows: { key: string | null; n: number }[]) =>
+  const toMap = (rows: { key: string | null; n: number }[]): Record<string, number> =>
     Object.fromEntries(rows.filter((r) => r.key != null).map((r) => [r.key!, r.n]));
   return {
-    location: { ...toMap(loc), remote: remote[0]?.n ?? 0 },
+    location: { ...toMap(loc), remote: remote[0]?.n ?? 0 } as Record<string, number>,
     field: toMap(field),
     type: toMap(type),
     mode: toMap(mode),
