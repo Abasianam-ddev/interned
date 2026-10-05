@@ -27,7 +27,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
   heroTitleLine2: "Opportunity.",
   heroSubtitle: "Internships and real-world opportunities built for students and young professionals.",
   heroScript: "Your Next Chapter Starts Here",
-  heroImage: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=1600&q=80",
+  heroImage: "https://www.magnific.com/free-photo/freelancer-uses-pen-write-notebook_396181807.htm#fromView=search&page=1&position=9&uuid=1e5d11b3-b344-4c1d-a2d1-df8d613e90c6&track=ais_hybrid&query=student+working+with+system",
   statOpportunities: "500+",
   statCompanies: "200+",
   statStudents: "50k+",
