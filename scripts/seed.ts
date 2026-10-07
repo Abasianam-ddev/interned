@@ -370,7 +370,7 @@ async function main() {
     .insert(pages)
     .values(PAGES)
     .onConflictDoNothing();
-  if ((await ({ n: sql<number>`count(*)::int` }).from(faqs))[0].n === 0) {
+  if ((await db.select({ n: sql<number>`count(*)::int` }).from(faqs))[0].n === 0) {
     await db.insert(faqs).values(FAQS.map((f, i) => ({ question: f.q, answer: f.a, category: f.c, sortOrder: i })));
   }
   await db
