@@ -65,24 +65,21 @@ export async function signupAction(_prev: ActionState, formData: FormData): Prom
   if (existing) return fail("An account with this email already exists.", { email: "Email is already registered" });
 
   const passwordHash = await hashPassword(password);
-  const user = await db.transaction(async (tx) => {
-    const [u] = await tx.insert(users).values({ name, email, passwordHash, role }).returning();
-    if (role === "student") {
-      await tx.insert(studentProfiles).values({ userId: u.id });
-    } else {
-      let slug = slugify(companyName!);
-      if (await tx.query.companies.findFirst({ where: eq(companies.slug, slug) })) slug = `${slug}-${randomSuffix()}`;
-      await tx.insert(companies).values({
-        name: companyName!,
-        slug,
-        ownerId: u.id,
-        email,
-        status: "active",
-        brandColor: ["#111827", "#6d28d9", "#087f5b", "#0f766e", "#b91c1c", "#1d4ed8"][Math.floor(Math.random() * 6)],
-      });
-    }
-    return u;
-  });
+  const [user] = await db.insert(users).values({ name, email, passwordHash, role }).returning();
+  if (role === "student") {
+    await db.insert(studentProfiles).values({ userId: user.id });
+  } else {
+    let slug = slugify(companyName!);
+    if (await db.query.companies.findFirst({ where: eq(companies.slug, slug) })) slug = `${slug}-${randomSuffix()}`;
+    await db.insert(companies).values({
+      name: companyName!,
+      slug,
+      ownerId: user.id,
+      email,
+      status: "active",
+      brandColor: ["#111827", "#6d28d9", "#087f5b", "#0f766e", "#b91c1c", "#1d4ed8"][Math.floor(Math.random() * 6)],
+    });
+  }
 
   await notify(user.id, {
     type: "welcome",
